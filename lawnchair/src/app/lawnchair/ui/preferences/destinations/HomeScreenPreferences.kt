@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import app.lawnchair.data.iconoverride.IconOverrideRepository
-import app.lawnchair.nexuslauncher.OverlayCallbackImpl
+import app.lawnchair.CustomMinusOneOverlay
 import app.lawnchair.preferences.getAdapter
 import app.lawnchair.preferences.preferenceManager
 import app.lawnchair.preferences2.preferenceManager2
@@ -79,7 +79,7 @@ fun HomeScreenPreferences(
             HomeScreenTextColorPreference()
         }
         PreferenceGroup(heading = stringResource(id = R.string.minus_one)) {
-            val feedAvailable = OverlayCallbackImpl.minusOneAvailable(LocalContext.current)
+            val feedAvailable = CustomMinusOneOverlay.minusOneAvailable(LocalContext.current)
             val enableFeedAdapter = prefs2.enableFeed.getAdapter()
             SwitchPreference(
                 adapter = enableFeedAdapter,
