@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import app.lawnchair.minusone.MinusOneScreen
 import com.android.launcher3.views.BaseDragLayer
 import com.android.systemui.plugins.shared.LauncherOverlayManager
+import com.android.systemui.plugins.shared.LauncherOverlayManager.LauncherOverlayCallbacks;
 
 class CustomMinusOneOverlay(private val launcher: LawnchairLauncher) :
     LauncherOverlayManager,
