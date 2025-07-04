@@ -29,7 +29,8 @@ class CustomMinusOneOverlay(private val launcher: LawnchairLauncher) :
     }
 
     override fun onAttachedToWindow() {
-        overlayView.visibility = View.VISIBLE
+        // Keep overlay hidden until the user scrolls to it
+        overlayView.visibility = View.GONE
     }
 
     override fun onDetachedFromWindow() {
