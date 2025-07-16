@@ -15,6 +15,8 @@ class CustomMinusOneOverlay(private val launcher: LawnchairLauncher) :
     LauncherOverlayManager.LauncherOverlay {
 
     private var callbacks: LauncherOverlayCallbacks? = null
+    private val prefs = PreferenceManager2.getInstance(launcher)
+    private var feedEnabled = prefs.enableFeed.get()
     private val overlayView: ComposeView = ComposeView(launcher).apply {
         setContent { MinusOneScreen() }
         visibility = View.GONE
@@ -32,12 +34,12 @@ class CustomMinusOneOverlay(private val launcher: LawnchairLauncher) :
 
     override fun onAttachedToWindow() {
         // Register this overlay with the workspace
-        launcher.setLauncherOverlay(this)
-        val prefs = PreferenceManager2.getInstance(launcher)
-        if (prefs.enableFeed.get()) {
+        if (feedEnabled) {
+            launcher.setLauncherOverlay(this)
             // Show minus one screen immediately if the feed is enabled
             openOverlay()
         } else {
+            launcher.setLauncherOverlay(null)
             overlayView.visibility = View.GONE
         }
     }
@@ -71,6 +73,16 @@ class CustomMinusOneOverlay(private val launcher: LawnchairLauncher) :
 
     override fun hideOverlay(duration: Int) {
         overlayView.visibility = View.GONE
+    }
+
+    fun setEnableFeed(enable: Boolean) {
+        feedEnabled = enable
+        if (enable) {
+            launcher.setLauncherOverlay(this)
+        } else {
+            launcher.setLauncherOverlay(null)
+            hideOverlay(false)
+        }
     }
 
     override fun setOverlayCallbacks(callbacks: LauncherOverlayCallbacks?) {

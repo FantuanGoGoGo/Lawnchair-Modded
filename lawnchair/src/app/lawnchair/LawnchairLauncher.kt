@@ -114,6 +114,12 @@ class LawnchairLauncher : QuickstepLauncher() {
 
         prefs.launcherTheme.subscribeChanges(this, ::updateTheme)
 
+        // Keep minus one overlay in sync with preference changes
+        defaultOverlay.setEnableFeed(preferenceManager2.enableFeed.get())
+        preferenceManager2.enableFeed.get().distinctUntilChanged().onEach { enable ->
+            defaultOverlay.setEnableFeed(enable)
+        }.launchIn(scope = lifecycleScope)
+
         if (prefs.autoLaunchRoot.get()) {
             lifecycleScope.launch {
                 try {
