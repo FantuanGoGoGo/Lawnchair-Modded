@@ -30,7 +30,8 @@ class CustomMinusOneOverlay(private val launcher: LawnchairLauncher) :
     }
 
     override fun onAttachedToWindow() {
-        overlayView.visibility = View.VISIBLE
+        // INVISIBLE keeps the view measured, ensuring smooth appearance when swiping
+        overlayView.visibility = View.INVISIBLE
     }
 
     override fun onDetachedFromWindow() {
@@ -46,7 +47,7 @@ class CustomMinusOneOverlay(private val launcher: LawnchairLauncher) :
         val direction = if (rtl) 1 else -1
         overlayView.translationX = width * (1 - progress) * direction
         if (!overlayView.isVisible && progress > 0f) overlayView.visibility = View.VISIBLE
-        if (progress == 0f) overlayView.visibility = View.GONE
+        if (progress == 0f) overlayView.visibility = View.INVISIBLE
         callbacks?.onOverlayScrollChanged(progress)
     }
 
